@@ -12,6 +12,10 @@
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
         }
 
+        .flip-card  h2,p {
+            user-select: none;
+        }
+
         /* This container is needed to position the front and back side */
         .flip-card-inner {
         position: relative;
@@ -23,7 +27,7 @@
         }
 
         /* Do an horizontal flip when you move the mouse over the flip box container */
-        .flip-card:hover .flip-card-inner {
+        .flip-card:hover .flip-card-inner, .flip-card:active .flip-card-inner {
         transform: rotateY(180deg);
         }
 
