@@ -1,0 +1,165 @@
+<html>
+
+<head>
+    <title>Flash cards</title>
+    <style>
+        /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+        .flip-card {
+        background-color: transparent;
+        width: 300px;
+        height: 200px;
+        border: 1px solid #f1f1f1;
+        perspective: 1000px; /* Remove this if you don't want the 3D effect */
+        }
+
+        /* This container is needed to position the front and back side */
+        .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        }
+
+        /* Do an horizontal flip when you move the mouse over the flip box container */
+        .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+        }
+
+        /* Position the front and back side */
+        .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+        }
+
+        /* Style the front side (fallback if image is missing) */
+        .flip-card-front {
+        background-color: #bbb;
+        color: black;
+        }
+
+        /* Style the back side */
+        .flip-card-back {
+        background-color: dodgerblue;
+        color: white;
+        transform: rotateY(180deg);
+        }
+    </style>
+    
+</head>
+
+<body>
+    <main>
+        <h1>nga kawekawe o te wheke (8 W's)</h1>
+        <div class="cards">
+        </div>
+    </main>
+</body>
+
+<template id="card">
+    <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div style="width:300px;height:300px;">
+                        <h2>front</h2>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="flip-card-back">
+                    <h2>back</h2>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+</template>
+
+<script type="text/javascript">
+        const cards = [
+            {
+                front: "Whakaruruhau",
+                frontSub: "",
+                back: "Shelter",
+                backSub: ""
+            },
+            {
+                front: "Wāhanga",
+                frontSub: "",
+                back: "parts of things",
+                backSub: ""
+            },
+            {
+                front: "Waka",
+                frontSub: "",
+                back: "transport",
+                backSub: ""
+            },
+            {
+                front: "Wāhi",
+                frontSub: "",
+                back: "places",
+                backSub: ""
+            },
+            {
+                front: "Whakarākei",
+                frontSub: "",
+                back: "Adornment",
+                backSub: ""
+            },
+            {
+                front: "Whanaunga",
+                frontSub: "",
+                back: "Family at/above you",
+                backSub: ""
+            },
+            {
+                front: "Whakaahua",
+                frontSub: "",
+                back: "Thoughts/feelings",
+                backSub: ""
+            },
+            {
+                front: "Whakaora",
+                frontSub: "",
+                back: "Give health",
+                backSub: ""
+            },
+        ];
+
+        function shuffle(array) {
+            let currentIndex = array.length;
+
+            // While there remain elements to shuffle...
+            while (currentIndex != 0) {
+
+                // Pick a remaining element...
+                let randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                // And swap it with the current element.
+                [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+            }
+
+        const cardHolder = document.querySelector('.cards');
+        const cardTemplate = document.getElementById('card');
+        shuffle(cards)
+        const renderedCards = cards.forEach((card) => {
+            /**
+             * @type {HTMLElement}
+             */
+            const rendered = document.importNode(cardTemplate.content, true);
+            const frontTitle = rendered.querySelector('.flip-card-front h2')
+            frontTitle.textContent = card.front;
+            
+            const backTitle = rendered.querySelector('.flip-card-back h2')
+            backTitle.textContent = card.back;
+
+            cardHolder.appendChild(rendered)
+        });
+    </script>
+</html>
